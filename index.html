@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F2937">
+<title>Cardoso Family · Pages</title>
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #1F2937;
+    --ink-soft: #4B5563;
+    --ink-faint: #9CA3AF;
+    --line: #E5E0D6;
+    --card-bg: #FFFFFF;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(31,41,55,.08);
+    --shadow-lg: 0 1px 2px rgba(0,0,0,.04), 0 24px 48px rgba(31,41,55,.12);
+    --accent: #6CACE4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1115;
+      --ink: #F3F4F6;
+      --ink-soft: #C9CDD3;
+      --ink-faint: #8A8F98;
+      --line: #2A2D33;
+      --card-bg: #1A1D23;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4);
+      --shadow-lg: 0 1px 2px rgba(0,0,0,.4), 0 24px 48px rgba(0,0,0,.5);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.5;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 22px max(40px, env(safe-area-inset-bottom));
+  }
+  .head { margin-bottom: 32px; }
+  .head .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .head h1 {
+    margin: 0 0 8px;
+    font-size: clamp(32px, 7vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .head p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 560px;
+  }
+  .pages {
+    display: grid;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  a.page {
+    display: block;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 22px 24px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform .08s, border-color .15s, box-shadow .2s;
+  }
+  a.page:hover { border-color: var(--ink-faint); box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+  a.page:active { transform: scale(.995); }
+  a.page h2 {
+    font-size: 22px;
+    margin: 0 0 4px;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+  a.page .sub {
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+  a.page .desc {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  a.page .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: .02em;
+  }
+  a.page .cta::after {
+    content: "→";
+    transition: transform .15s;
+  }
+  a.page:hover .cta::after { transform: translateX(3px); }
+
+  .coming {
+    background: transparent;
+    border: 1.5px dashed var(--line);
+    border-radius: 20px;
+    padding: 28px 22px;
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  footer { margin-top: 48px; text-align: center; color: var(--ink-faint); font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">Cardoso Family · Notes</div>
+    <h1>Shared Pages</h1>
+    <p>One-off pages we want to look at together — shortlists, comparisons, decisions in progress.</p>
+  </div>
+
+  <div class="pages">
+    <a class="page" href="./dentists/">
+      <h2>New Family Dentist</h2>
+      <div class="sub">May 2026 · zip codes 92127 / 92128 / 92129</div>
+      <p class="desc">Shortlist of two finalists for our new dentist after 25 years at La Jolla Dentistry. Both take Delta Dental, both are well-reviewed for a calm, unhurried chairside style.</p>
+      <span class="cta">Open</span>
+    </a>
+
+    <div class="coming">More pages as we go.</div>
+  </div>
+
+  <footer>Last updated 2026-05-20</footer>
+</div>
+</body>
+</html>
