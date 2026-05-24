@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interior Painter Recommendations — 92129 / Rancho Peñasquitos</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    color: #1a1a1a;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    background: #fafafa;
+  }
+  h1 { font-size: 28px; margin: 0 0 4px; }
+  h2 { font-size: 22px; margin: 32px 0 12px; border-bottom: 2px solid #d4d4d4; padding-bottom: 6px; }
+  h3 { font-size: 18px; margin: 16px 0 6px; }
+  .subtitle { color: #555; margin-bottom: 24px; font-size: 14px; }
+  .summary {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .summary ul { margin: 8px 0 0; padding-left: 22px; }
+  .card {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 10px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .card.top-pick { border-left: 5px solid #2e7d32; }
+  .card.runner-up { border-left: 5px solid #1565c0; }
+  .badge {
+    display: inline-block;
+    background: #eaf4ec;
+    color: #2e7d32;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+  }
+  .badge.runner-up { background: #e3f0fb; color: #1565c0; }
+  .badge.warn { background: #fdecea; color: #c62828; }
+  .badge.caution { background: #fff8e1; color: #e65100; }
+  .badge.info { background: #eef2f7; color: #455a64; }
+  .badge.eco { background: #e8f5e9; color: #1b5e20; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 6px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .info-grid dt { font-weight: 600; color: #444; }
+  .info-grid dd { margin: 0; }
+  .pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 12px 0;
+  }
+  .pros, .cons {
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+  .pros { background: #f1f8f2; }
+  .cons { background: #fdf6ec; }
+  .pros h4, .cons h4 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #555; }
+  .pros ul, .cons ul { margin: 0; padding-left: 18px; }
+  .eco-box {
+    background: #f1f8f2;
+    border: 1px solid #c8e6c9;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .eco-box .eco-title {
+    font-weight: 700;
+    color: #1b5e20;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .eco-box.caution {
+    background: #fff8e1;
+    border-color: #ffe082;
+  }
+  .eco-box.caution .eco-title { color: #e65100; }
+  .quote-block {
+    border-left: 3px solid #b0bec5;
+    margin: 8px 0;
+    padding: 6px 12px;
+    font-style: italic;
+    color: #333;
+    font-size: 14px;
+  }
+  .quote-source { font-style: normal; font-size: 12px; color: #888; margin-top: 2px; }
+  .ratings-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 8px 0 12px; }
+  .rating-chip {
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .rating-chip .stars { color: #f9a825; }
+  .action-callout {
+    background: #e3f0fb;
+    border: 1px solid #90caf9;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 14px;
+  }
+  .action-callout strong { color: #1565c0; }
+  .note-box {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #555;
+  }
+  .eliminated-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 12px; }
+  .eliminated-table th { background: #f0f0f0; text-align: left; padding: 8px 12px; border-bottom: 2px solid #ddd; }
+  .eliminated-table td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .eliminated-table tr:last-child td { border-bottom: none; }
+  a { color: #1565c0; }
+  @media (max-width: 700px) {
+    .pros-cons { grid-template-columns: 1fr; }
+    .ratings-row { gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Interior Painter Recommendations</h1>
+<p class="subtitle">92129 / Rancho Peñasquitos &nbsp;·&nbsp; Generated 2026-05-23 &nbsp;·&nbsp; 2 candidates</p>
+
+<div class="summary">
+  <strong>Selection criteria (ranked):</strong>
+  <ul>
+    <li><strong>Eco-conscious paint disposal</strong> — no pouring down drains or sewers; proper leftover paint recycling/donation (dealbreaker for wife)</li>
+    <li>High ratings across multiple platforms (4.7+ target)</li>
+    <li>Excellent communication — responsive, proactive, clear timelines</li>
+    <li>Punctual and professional — on time, finishes on schedule, clean job sites</li>
+    <li>Interior painting specialty; serves 92129</li>
+    <li>Cost not a constraint — quality over cheapest</li>
+  </ul>
+</div>
+
+<!-- ============================== CANDIDATE 1 ============================== -->
+<h2>Candidate 1 — Top Pick</h2>
+
+<div class="card top-pick">
+  <h3>PaintGreen <span style="font-weight:400;font-size:15px;color:#666;">(formerly/also Peek Brothers Painting)</span></h3>
+  <span class="badge">Top Pick</span>
+  <span class="badge eco">🌿 Strongest Eco Credentials</span>
+  <span class="badge info">Local &amp; Independent</span>
+  <span class="badge info">Est. 1981 / 2007</span>
+
+  <div class="ratings-row">
+    <span class="rating-chip"><span class="stars">★★★★★</span> 4.9 Google (136)</span>
+    <span class="rating-chip"><span class="stars">★★★★½</span> 4.8 Angi</span>
+    <span class="rating-chip"><span class="stars">★★★★½</span> 4.5 Yelp (147)</span>
+    <span class="rating-chip"><span class="stars">★★★★★</span> 4.9 BirdEye agg. (260)</span>
+    <span class="rating-chip">BBB A+ (Torch Award finalist 2025)</span>
+  </div>
+
+  <dl class="info-grid">
+    <dt>Phone</dt>         <dd>(619) 446-6983</dd>
+    <dt>Website</dt>       <dd><a href="https://paintgreen.com/" target="_blank">paintgreen.com</a></dd>
+    <dt>License</dt>       <dd>CSLB #894102 — C-33 Painting Contractor</dd>
+    <dt>Hours</dt>         <dd>Monday–Friday 8am–6pm</dd>
+    <dt>Serves 92129</dt>  <dd>Confirmed — dedicated <a href="https://paintgreen.com/rancho-penasquitos-painters/" target="_blank">Rancho Peñasquitos page</a> with completed job evidence</dd>
+    <dt>Interior work</dt> <dd>Yes — walls, ceilings, trim, cabinets, kitchens, bathrooms</dd>
+  </dl>
+
+  <div class="eco-box">
+    <div class="eco-title">🌿 Eco Disposal — Verified Contractor-Level Commitment</div>
+    This is the only painter found whose own website makes an <em>explicit contractor policy statement</em> (not just general homeowner advice):
+    <br><br>
+    <div class="quote-block">"We follow best practices for disposal when necessary, but we recycle and donate our leftover paint to local charities."<div class="quote-source">— <a href="https://paintgreen.com/enviro-friendly/" target="_blank">paintgreen.com/enviro-friendly/</a></div></div>
+    <strong>Additional eco practices:</strong>
+    <ul style="margin:6px 0 0;padding-left:20px;font-size:14px;">
+      <li>Low and zero-VOC paints exclusively ("high-quality, low to no-VOC paints to reduce harmful emissions")</li>
+      <li>Green Seal certified paints and products (Houzz profile)</li>
+      <li>Reusable canvas drop cloths instead of single-use plastic</li>
+      <li>EPA Lead Paint RRP certified; listed by City of San Diego</li>
+      <li><a href="https://paintgreen.com/giving-back/" target="_blank">Paint-it-Forward program</a> — twice-yearly free painting for nonprofits</li>
+    </ul>
+  </div>
+
+  <h4 style="margin:16px 0 8px;">Communication &amp; Punctuality — Review Evidence</h4>
+  <div class="quote-block">"They showed up on time and worked hard to get the job done. Jon stayed in close communication with us. The quote matched the actual cost, so there were no surprises."<div class="quote-source">— Kelly F., San Diego (paintgreen.com review)</div></div>
+  <div class="quote-block">"Everything went great! The crew was phenomenal. Always on time. Always clean. Kept their word."<div class="quote-source">— Rob, Rancho Peñasquitos (paintgreen.com/rancho-penasquitos-painters/)</div></div>
+  <div class="quote-block">"The owner Jon was professional, thoughtful, and incredibly thorough… finished on time and on budget. Within 24 hours, I received a detailed estimate."<div class="quote-source">— Poyst reviewer</div></div>
+  <div class="quote-block">"Every person on the team was professional, pleasant, and personable. The job was completed on time with great communication from all team members."<div class="quote-source">— Poyst reviewer</div></div>
+  <div class="quote-block">"Jose is very knowledgeable, professional, on time, very meticulous, kept me posted on progress."<div class="quote-source">— Angi reviewer (interior bedroom project)</div></div>
+  <p style="font-size:14px;">Company policy statement: <em>"Clear communication is at the heart of our service. Expect daily progress updates and prompt responses to any questions or concerns."</em></p>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Strengths</h4>
+      <ul>
+        <li>Only painter with documented contractor-level eco disposal policy</li>
+        <li>4.9 Google / 4.8 Angi — dominant across platforms</li>
+        <li>40+ year lineage (Peek Brothers est. 1981)</li>
+        <li>BBB A+ with Torch Award Ethics nomination</li>
+        <li>Confirmed Rancho Peñasquitos work history</li>
+        <li>Angie's List Super Service Award 3 years running</li>
+        <li>Interior painting explicitly listed as primary service</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Caveats</h4>
+      <ul>
+        <li>Yelp is 4.5 (below 4.7 threshold) — likely Yelp filter artifact; all other platforms clear the bar</li>
+        <li>Weekdays only — no weekend estimates or work</li>
+        <li>Two different addresses appear in different sources (verify on call)</li>
+        <li>Business legally incorporated April 2024 (restructuring from Peek Brothers acquisition)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="action-callout">
+    <strong>How to book:</strong> Call (619) 446-6983 or visit <a href="https://paintgreen.com/" target="_blank">paintgreen.com</a>. On the call, mention you found their Rancho Peñasquitos work page — it signals you've done your homework and they'll know the area well. Ask about their specific disposal process for leftover paint to confirm the policy you read on their site is current.
+  </div>
+</div>
+
+<!-- ============================== CANDIDATE 2 ============================== -->
+<h2>Candidate 2 — Runner-Up</h2>
+
+<div class="card runner-up">
+  <h3>Procoat Painting San Diego</h3>
+  <span class="badge runner-up">Runner-Up</span>
+  <span class="badge eco">🌿 Eco Aware</span>
+  <span class="badge info">Family-Owned</span>
+  <span class="badge info">Est. 2002</span>
+
+  <div class="ratings-row">
+    <span class="rating-chip"><span class="stars">★★★★★</span> 5.0 HomeAdvisor</span>
+    <span class="rating-chip"><span class="stars">★★★★★</span> 5.0 Houzz</span>
+    <span class="rating-chip"><span class="stars">★★★★★</span> 4.8 BirdEye (171)</span>
+    <span class="rating-chip">Yelp 146 reviews (star unconfirmed — verify directly)</span>
+    <span class="rating-chip">BBB A+ (accredited since 2010)</span>
+  </div>
+
+  <dl class="info-grid">
+    <dt>Phone</dt>         <dd>Verify at <a href="https://procoatpaintingsandiego.com/contact/" target="_blank">procoatpaintingsandiego.com/contact/</a></dd>
+    <dt>Website</dt>       <dd><a href="https://procoatpaintingsandiego.com/" target="_blank">procoatpaintingsandiego.com</a></dd>
+    <dt>License</dt>       <dd>CSLB #806008 — C-33 Painting and Decorating</dd>
+    <dt>Hours</dt>         <dd>Monday–Friday 8am–4pm</dd>
+    <dt>Owners</dt>        <dd>Michael &amp; Shanna Mayhue (family-owned since 2002)</dd>
+    <dt>Warranty</dt>      <dd>4-year labor warranty</dd>
+    <dt>Serves 92129</dt>  <dd>Covers all San Diego County; dedicated Scripps Ranch page (adjacent to 92129) — confirm on first call</dd>
+    <dt>Interior work</dt> <dd>Yes — walls, ceilings, trim, kitchens, bathrooms, bedrooms</dd>
+  </dl>
+
+  <div class="eco-box caution">
+    <div class="eco-title">⚠️ Eco Disposal — Verify on First Call</div>
+    Procoat has dedicated blog content on eco-friendly painting and sustainable practices, covering: not pouring paint down drains, PaintCare recycling program, donating leftover paint to schools and community groups, and low/zero-VOC options.
+    <br><br>
+    <strong>Important caveat:</strong> The indexed content reads as <em>general homeowner education</em> ("residents can recycle leftover paint with PaintCare") rather than an explicit contractor policy statement like PaintGreen's. HomeAdvisor also flags that Procoat "does not hold formal eco-friendly accreditations."
+    <br><br>
+    <strong>Action:</strong> On your first call, ask: <em>"When a job ends, what do you do with any leftover paint?"</em> The answer will tell you whether their eco content is policy or marketing. If they describe a concrete process (PaintCare drop-off, charity donation, etc.), this caveat goes away.
+    <br><br>
+    <a href="https://procoatpaintingsandiego.com/blog/eco-friendly-painting/" target="_blank">Eco-friendly painting blog</a> &nbsp;·&nbsp;
+    <a href="https://procoatpaintingsandiego.com/blog/sustainable-painting-practices/" target="_blank">Sustainable practices blog</a>
+  </div>
+
+  <h4 style="margin:16px 0 8px;">Communication &amp; Punctuality — Review Evidence</h4>
+  <div class="quote-block">"Mike and his crew were very professional from start to finish. They were on time and always communicated what would be done for that day. The painters were attentive to detail."<div class="quote-source">— Angi reviewer</div></div>
+  <div class="quote-block">"From the beginning Mike was professional, personable, and dependable. The work was completed on time and looks great! He followed through with his commitments and kept to his deadline."<div class="quote-source">— Angi reviewer</div></div>
+  <div class="quote-block">"Were there at 7am everyday, took their lunch at noon, and made tidy the entire premises before leaving."<div class="quote-source">— BirdEye reviewer</div></div>
+  <div class="quote-block">"Started on a Monday and finished on that Friday… just like they had promised."<div class="quote-source">— Customer review</div></div>
+  <div class="quote-block">"We were most impressed with the communication and value presented by Procoat."<div class="quote-source">— Customer review</div></div>
+  <div class="quote-block">"Michael was easy to work with, communicative, and incredibly helpful."<div class="quote-source">— BirdEye reviewer (Scripps Ranch project)</div></div>
+
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Strengths</h4>
+      <ul>
+        <li>5.0 Houzz, 5.0 HomeAdvisor, 4.8 BirdEye (171 reviews)</li>
+        <li>BBB A+ accredited since 2010 — 15 years of clean history</li>
+        <li>Family-owned with consistent owner involvement (Mike personally mentioned in reviews)</li>
+        <li>4-year labor warranty — unusually strong commitment</li>
+        <li>Eco-aware content; ready-to-verify with one call</li>
+        <li>23+ years in business</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Caveats</h4>
+      <ul>
+        <li>Eco disposal is unconfirmed at contractor-policy level — must verify on call</li>
+        <li>HomeAdvisor explicitly notes "no eco-friendly accreditations"</li>
+        <li>Yelp star rating not confirmed (146 reviews confirmed; star unknown)</li>
+        <li>Office is in La Mesa — no dedicated 92129 service page (confirm coverage on first call)</li>
+        <li>Phone not publicly indexed — get from contact page</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="action-callout">
+    <strong>How to book:</strong> Get the number from <a href="https://procoatpaintingsandiego.com/contact/" target="_blank">procoatpaintingsandiego.com/contact/</a>. Open question to ask: <em>"What do you do with leftover paint when the job is done?"</em> If they give a concrete eco answer, they're confirmed. Also confirm they serve 92129 specifically.
+  </div>
+</div>
+
+<!-- ============================== WHY THE OTHERS DIDN'T MAKE IT ============================== -->
+<h2>Why Others Were Eliminated</h2>
+
+<div class="card" style="border-left:none;">
+  <p style="font-size:14px;margin-top:0;">Every other highly-rated painter in the area failed the eco disposal criterion. No evidence = elimination, regardless of star count.</p>
+  <table class="eliminated-table">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Ratings</th>
+        <th>Why Eliminated</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Stubbins Painting</strong></td>
+        <td>4.9 Yelp (215 reviews)</td>
+        <td>HomeAdvisor explicitly: "does not hold eco-friendly accreditations"; no disposal language anywhere. Eco dealbreaker.</td>
+      </tr>
+      <tr>
+        <td><strong>McCarthy Painting</strong></td>
+        <td>430+ Yelp reviews</td>
+        <td>Angi: "does not offer eco-friendly accreditations." Sustainable Business Network membership too vague. Eco dealbreaker.</td>
+      </tr>
+      <tr>
+        <td><strong>Chism Brothers Painting</strong></td>
+        <td>70 Yelp, 117 overall</td>
+        <td>No eco disposal evidence on website, Houzz, BBB, or any review platform.</td>
+      </tr>
+      <tr>
+        <td><strong>Finishline Painting</strong></td>
+        <td>105 Yelp reviews</td>
+        <td>No eco content found on website; no disposal language anywhere.</td>
+      </tr>
+      <tr>
+        <td><strong>Rainbow Painting Consulting</strong></td>
+        <td>#1 Poway Yelp (70 reviews)</td>
+        <td>Low-VOC paints mentioned; zero disposal language on website, BBB, or BuildZoom.</td>
+      </tr>
+      <tr>
+        <td><strong>Eco G Painters</strong></td>
+        <td>25 Yelp reviews</td>
+        <td>LEED/GREENGUARD certified paints; but only 25 reviews (too few) and no disposal evidence.</td>
+      </tr>
+      <tr>
+        <td><strong>Marsol Painting</strong></td>
+        <td>32 Yelp reviews</td>
+        <td>Low-VOC mentioned; but only 32 reviews, plus BuildZoom flagged an expired license.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============================== OPEN QUESTIONS ============================== -->
+<h2>Open Questions Before You Call</h2>
+
+<div class="note-box">
+  <ol style="margin:0;padding-left:20px;">
+    <li style="margin-bottom:8px;"><strong>Do you have colors already selected, or do you want color consultation?</strong> Both PaintGreen and Procoat work with Benjamin Moore and Sherwin-Williams; if you want a color consultant included, ask upfront — some painters partner with designers, others don't.</li>
+    <li style="margin-bottom:8px;"><strong>Interior only, or do you also want an exterior quote while they're there?</strong> Both do exterior. Could be convenient if exterior is on the horizon.</li>
+    <li><strong>Full house vs. specific rooms?</strong> Clarify scope early so the estimate is accurate. Procoat specifically is known for detailed scoping — reviewers mention the quote matched the final cost.</li>
+  </ol>
+</div>
+
+<!-- ============================== SOURCES ============================== -->
+<h2>Sources</h2>
+<div class="note-box" style="font-size:13px;">
+  <strong>PaintGreen:</strong>
+  <a href="https://paintgreen.com/" target="_blank">paintgreen.com</a> ·
+  <a href="https://paintgreen.com/enviro-friendly/" target="_blank">Eco page</a> ·
+  <a href="https://paintgreen.com/rancho-penasquitos-painters/" target="_blank">Rancho Peñasquitos job</a> ·
+  <a href="https://www.yelp.com/biz/paint-green-san-diego-2" target="_blank">Yelp</a> ·
+  <a href="https://www.bbb.org/us/ca/san-diego/profile/painting-contractors/paintgreen-1126-16005809" target="_blank">BBB</a> ·
+  <a href="https://reviews.birdeye.com/paintgreen-144483018198510" target="_blank">BirdEye</a> ·
+  <a href="https://www.angi.com/companylist/us/ca/san-diego/paintgreen-reviews-407434.htm" target="_blank">Angi</a>
+  <br><br>
+  <strong>Procoat Painting:</strong>
+  <a href="https://procoatpaintingsandiego.com/" target="_blank">procoatpaintingsandiego.com</a> ·
+  <a href="https://procoatpaintingsandiego.com/blog/eco-friendly-painting/" target="_blank">Eco blog</a> ·
+  <a href="https://procoatpaintingsandiego.com/blog/sustainable-painting-practices/" target="_blank">Sustainable practices blog</a> ·
+  <a href="https://www.yelp.com/biz/procoat-painting-san-diego-la-mesa" target="_blank">Yelp</a> ·
+  <a href="https://www.bbb.org/us/ca/la-mesa/profile/painting-contractors/procoat-painting-san-diego-1126-29004200" target="_blank">BBB</a> ·
+  <a href="https://reviews.birdeye.com/procoat-painting-san-diego-149067011194769" target="_blank">BirdEye</a>
+  <br><br>
+  <strong>Paint disposal reference:</strong>
+  <a href="https://www.paintcare.org/drop-off-sites/" target="_blank">PaintCare drop-off locator</a> ·
+  <a href="https://www.sandiego.gov/environmental-services/ep/hazardous/paint" target="_blank">City of San Diego paint recycling</a>
+</div>
+
+</body>
+</html>
