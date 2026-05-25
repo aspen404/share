@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Photo Culler — Google Drive</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d;
+  --surface: #141414;
+  --border: #252525;
+  --text: #e0e0e0;
+  --muted: #666;
+  --accent: #4f8ef7;
+  --danger: #e74c3c;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Screens ─────────────────────────────────────────────────── */
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 24px;
+  gap: 18px;
+  text-align: center;
+}
+.screen.active { display: flex; }
+h1 { font-size: 2rem; font-weight: 200; }
+.sub { color: var(--muted); font-size: 0.88rem; max-width: 480px; line-height: 1.6; }
+.fine { color: #333; font-size: 0.72rem; }
+
+/* Setup guide */
+details {
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  max-width: 540px;
+  width: 100%;
+  text-align: left;
+}
+summary {
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--accent);
+  user-select: none;
+  list-style: none;
+}
+summary::before { content: '▶ '; font-size: 0.7rem; }
+details[open] summary::before { content: '▼ '; }
+.steps { margin-top: 14px; font-size: 0.82rem; line-height: 1.8; color: var(--muted); counter-reset: step; }
+.steps li { counter-increment: step; padding-left: 4px; }
+.steps li::marker { content: counter(step) '. '; color: var(--accent); }
+.steps li + li { margin-top: 4px; }
+code {
+  background: #1e1e1e;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 0.8rem;
+  color: #adf;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+}
+.cmd {
+  display: block;
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin: 8px 0;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.8rem;
+  color: #8df;
+  user-select: all;
+}
+.note { color: #e9a84c; font-size: 0.78rem; margin-top: 8px; }
+
+/* Inputs */
+.field {
+  display: flex;
+  gap: 8px;
+  max-width: 520px;
+  width: 100%;
+}
+input[type=text] {
+  flex: 1;
+  background: #111;
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 9px 12px;
+  outline: none;
+}
+input[type=text]:focus { border-color: var(--accent); }
+input[type=text]::placeholder { color: #3a3a3a; }
+
+.signed-as { font-size: 0.8rem; color: #3a3a3a; }
+
+/* ── Loading ─────────────────────────────────────────────────── */
+#s-loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.93);
+  z-index: 500;
+}
+.spinner {
+  width: 32px; height: 32px;
+  border: 3px solid #2a2a2a;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── App ─────────────────────────────────────────────────────── */
+#app {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+}
+#app.active { display: flex; }
+
+#topbar {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  flex-shrink: 0;
+  height: 40px;
+}
+#progress { font-size: 0.78rem; color: var(--muted); white-space: nowrap; min-width: 72px; }
+#filepath {
+  flex: 1;
+  font-size: 0.7rem;
+  color: #3d3d3d;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+#marked-count { font-size: 0.78rem; color: var(--danger); white-space: nowrap; min-width: 80px; text-align: right; }
+#btn-change-folder { font-size: 0.7rem; color: #2a2a2a; background: none; border: none; cursor: pointer; white-space: nowrap; padding: 2px 4px; }
+#btn-change-folder:hover { color: #555; }
+
+#viewport {
+  flex: 1;
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#photo, #photo-video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  user-select: none;
+  display: block;
+  transition: opacity 0.15s;
+}
+#photo.dim, #photo-video.dim { opacity: 0.18; }
+#photo.loading { opacity: 0.15; }
+#photo-video { display: none; }
+
+#del-badge, #fav-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+  display: none;
+}
+#del-badge { background: rgba(231,76,60,0.93); }
+#fav-badge { background: rgba(39,174,96,0.93); top: calc(50% - 44px); }
+
+#img-loading {
+  position: absolute;
+  width: 24px; height: 24px;
+  border: 2px solid #222;
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: none;
+}
+
+#ctrlbar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+#ctrls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  flex-wrap: wrap;
+}
+#hints {
+  text-align: center;
+  font-size: 0.64rem;
+  color: #2d2d2d;
+  padding: 0 0 7px;
+  letter-spacing: 0.04em;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────── */
+.btn {
+  padding: 7px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: opacity 0.1s;
+}
+.btn:active { transform: scale(0.96); }
+.btn:hover { opacity: 0.8; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-ghost { background: transparent; color: #888; border: 1px solid #2e2e2e; }
+.btn-ghost:hover { color: var(--text); border-color: #555; }
+.btn-on { background: var(--accent) !important; color: #fff !important; border-color: var(--accent) !important; }
+.btn-fav { background: #27ae60; color: #fff; }
+.btn-fav-done { background: transparent; color: #27ae60; border: 1px solid #27ae60; }
+.sep { width: 1px; height: 26px; background: var(--border); margin: 0 2px; flex-shrink: 0; }
+.ctrl-lbl { font-size: 0.78rem; color: var(--muted); }
+#speed-label { font-size: 0.78rem; color: var(--muted); min-width: 30px; }
+input[type=range] {
+  -webkit-appearance: none;
+  width: 90px; height: 4px;
+  background: #2e2e2e; border-radius: 2px; cursor: pointer; outline: none;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border-radius: 50%; background: var(--accent); cursor: pointer;
+}
+input[type=range]::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%; background: var(--accent); border: none; cursor: pointer;
+}
+
+/* ── Modal ───────────────────────────────────────────────────── */
+#modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.88);
+  z-index: 400;
+  align-items: center;
+  justify-content: center;
+}
+#modal-box {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 28px;
+  max-width: 400px;
+  width: 90%;
+}
+#modal-box h2 { font-weight: 400; margin-bottom: 10px; }
+#modal-body { color: var(--muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 22px; }
+.modal-row { display: flex; gap: 10px; justify-content: flex-end; }
+#purge-bar-wrap { background: #2a2a2a; border-radius: 4px; height: 6px; margin: 14px 0 8px; overflow: hidden; }
+#purge-bar { height: 100%; background: var(--danger); border-radius: 4px; width: 0; transition: width 0.2s; }
+#purge-status { font-size: 0.82rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ── Screen: Setup ─────────────────────────────────────────── -->
+<div id="s-setup" class="screen active">
+  <div style="font-size:2.8rem">📷</div>
+  <h1>Photo Culler</h1>
+  <p class="sub">Browse and cull photos stored in Google Drive. Sign in once, then open any folder.</p>
+
+  <details>
+    <summary>One-time setup — get your OAuth Client ID</summary>
+    <ol class="steps">
+      <li>Go to <code>console.cloud.google.com</code> and create a new project.</li>
+      <li>Search <strong>Google Drive API</strong> → Enable it.</li>
+      <li>Go to <strong>APIs &amp; Services → OAuth consent screen</strong>.<br>
+          Choose <em>External</em>, fill in app name, add your email as a <strong>Test user</strong>.</li>
+      <li>Go to <strong>Credentials → Create Credentials → OAuth 2.0 Client ID</strong>.<br>
+          Type: <em>Web application</em>.</li>
+      <li>Under <strong>Authorized JavaScript origins</strong>, add:
+          <code>http://localhost:8080</code></li>
+      <li>Save → copy the <strong>Client ID</strong> (ends in <code>.apps.googleusercontent.com</code>).</li>
+      <li>Serve this file locally — run in the same folder as this HTML:
+          <span class="cmd">python3 -m http.server 8080</span></li>
+      <li>Open <code>http://localhost:8080/photo-culler.html</code> in Chrome.</li>
+    </ol>
+    <p class="note">⚠ This file must be served from localhost — opening it as a file:// URL won't work for OAuth.</p>
+  </details>
+
+  <div class="field">
+    <input type="text" id="cid" placeholder="Paste OAuth Client ID (…apps.googleusercontent.com)">
+    <button class="btn btn-primary" onclick="signIn()">Sign in with Google</button>
+  </div>
+  <p class="fine">Access token stays in memory only · Never leaves your browser</p>
+</div>
+
+<!-- ── Screen: Folder ────────────────────────────────────────── -->
+<div id="s-folder" class="screen">
+  <div style="font-size:2.8rem">📁</div>
+  <h1>Open a Folder</h1>
+  <p class="sub">Paste a Google Drive folder URL or just the folder ID. Subfolders are included automatically.</p>
+  <p class="signed-as" id="signed-as"></p>
+  <div class="field">
+    <input type="text" id="folder-url" placeholder="https://drive.google.com/drive/folders/… or folder ID">
+    <button class="btn btn-primary" onclick="loadFolder()">Load Photos</button>
+  </div>
+  <p class="fine">Tip: right-click any Drive folder → "Share" → copy the link</p>
+</div>
+
+<!-- ── Screen: Loading ───────────────────────────────────────── -->
+<div id="s-loading" class="screen" style="position:fixed;inset:0;background:rgba(0,0,0,0.93);z-index:500;justify-content:center;">
+  <div class="spinner"></div>
+  <div style="color:var(--muted)">Scanning folder…</div>
+  <div id="scan-n" style="color:#3a3a3a;font-size:0.82rem"></div>
+</div>
+
+<!-- ── Purge confirmation ────────────────────────────────────── -->
+<div id="modal">
+  <div id="modal-box">
+    <h2>Delete Forever?</h2>
+    <div id="modal-body"></div>
+    <div class="modal-row">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="doPurge()">Yes, Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── App ───────────────────────────────────────────────────── -->
+<div id="app">
+  <div id="topbar">
+    <div id="progress">– / –</div>
+    <div id="filepath"></div>
+    <div id="marked-count"></div>
+    <button id="btn-change-folder" onclick="goToFolder()">change folder</button>
+  </div>
+  <div id="viewport">
+    <img id="photo" alt="">
+    <video id="photo-video" playsinline muted></video>
+    <div id="del-badge">MARKED FOR DELETION</div>
+    <div id="fav-badge">★ FAVORITED</div>
+    <div id="img-loading"></div>
+  </div>
+  <div id="ctrlbar">
+    <div id="ctrls"></div>
+    <div id="hints"></div>
+  </div>
+</div>
+
+<script src="https://accounts.google.com/gsi/client" async></script>
+<script>
+// ── State ─────────────────────────────────────────────────────
+let CLIENT_ID = localStorage.getItem('ph_client') || '';
+let userEmail = '';
+let accessToken = null;
+let tokenClient = null;
+let photos = [], cur = 0, marked = new Set(), favorited = new Set();
+let autoPlaying = true, autoRandom = false, autoDelay = 1000, autoTimer = null;
+let effectiveDelay = 1000; // may be longer for GIFs and videos
+let rendering = false;
+let favFolderId = null;
+const imgCache = new Map(); // fileId → blobURL, max 8 entries
+
+const IMG_MIME = new Set([
+  'image/jpeg','image/jpg','image/png','image/gif','image/webp',
+  'image/heic','image/heif','image/bmp','image/tiff','image/avif'
+]);
+
+const VIDEO_MIME = new Set([
+  'video/mp4','video/webm','video/ogg','video/quicktime',
+  'video/x-msvideo','video/x-matroska','video/3gpp'
+]);
+
+const DEFAULT_CLIENT_ID = '841790868450-avead9q26oaileh9bsamdl1r5lfbssbu.apps.googleusercontent.com';
+
+// Restore saved client ID
+window.addEventListener('DOMContentLoaded', () => {
+  if (!CLIENT_ID) CLIENT_ID = localStorage.getItem('ph_client') || DEFAULT_CLIENT_ID;
+  el('cid').value = CLIENT_ID;
+  const saved = localStorage.getItem('ph_folder');
+  if (saved) el('folder-url').value = saved;
+});
+
+// ── Auth ──────────────────────────────────────────────────────
+
+function signIn() {
+  CLIENT_ID = el('cid').value.trim();
+  if (!CLIENT_ID) { alert('Paste your OAuth Client ID first.'); return; }
+  localStorage.setItem('ph_client', CLIENT_ID);
+
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CLIENT_ID,
+    scope: [
+      'https://www.googleapis.com/auth/drive',
+      'https://www.googleapis.com/auth/userinfo.email',
+    ].join(' '),
+    callback: onToken,
+  });
+  tokenClient.requestAccessToken();
+}
+
+async function onToken(resp) {
+  if (resp.error) { alert('Sign-in failed: ' + resp.error); return; }
+  accessToken = resp.access_token;
+  // fetch email for display
+  try {
+    const r = await fetch('https://www.googleapis.com/oauth2/v2/userinfo',
+      { headers: { Authorization: `Bearer ${accessToken}` } });
+    const d = await r.json();
+    userEmail = d.email || '';
+    el('signed-as').textContent = userEmail ? `Signed in as ${userEmail}` : '';
+  } catch(e) { /* non-critical */ }
+  showScreen('s-folder');
+}
+
+function reauth() {
+  return new Promise((resolve, reject) => {
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: 'https://www.googleapis.com/auth/drive',
+      callback: resp => {
+        if (resp.error) reject(new Error(resp.error));
+        else { accessToken = resp.access_token; resolve(); }
+      },
+    });
+    tokenClient.requestAccessToken({ prompt: '' });
+  });
+}
+
+// ── Drive API ─────────────────────────────────────────────────
+
+async function driveAPI(url, opts = {}) {
+  const doFetch = () => fetch(url, {
+    ...opts,
+    headers: { Authorization: `Bearer ${accessToken}`, ...opts.headers }
+  });
+  let r = await doFetch();
+  if (r.status === 401) { await reauth(); r = await doFetch(); }
+  return r;
+}
+
+async function listFiles(folderId) {
+  let all = [], pageToken = '';
+  do {
+    const params = new URLSearchParams({
+      q: `'${folderId}' in parents and trashed = false`,
+      fields: 'nextPageToken,files(id,name,mimeType)',
+      pageSize: '1000',
+      ...(pageToken && { pageToken }),
+    });
+    const r = await driveAPI(`https://www.googleapis.com/drive/v3/files?${params}`);
+    if (!r.ok) throw new Error(`Drive API error ${r.status}: ${await r.text()}`);
+    const d = await r.json();
+    all = all.concat(d.files || []);
+    pageToken = d.nextPageToken || '';
+  } while (pageToken);
+  return all;
+}
+
+async function* walkFolder(folderId, path = '') {
+  const files = await listFiles(folderId);
+  files.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  for (const f of files) {
+    if (f.mimeType === 'application/vnd.google-apps.folder') {
+      yield* walkFolder(f.id, path + f.name + '/');
+    } else if (IMG_MIME.has(f.mimeType) || VIDEO_MIME.has(f.mimeType)) {
+      yield { id: f.id, name: f.name, path: path + f.name, mimeType: f.mimeType };
+    }
+  }
+}
+
+// ── Load folder ───────────────────────────────────────────────
+
+async function loadFolder() {
+  const input = el('folder-url').value.trim();
+  if (!input) { alert('Enter a folder URL or ID.'); return; }
+  localStorage.setItem('ph_folder', input);
+
+  const match = input.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+  const folderId = match ? match[1] : input;
+
+  showScreen('s-loading');
+  photos = []; marked.clear(); favorited.clear(); cur = 0;
+  imgCache.forEach(url => URL.revokeObjectURL(url)); imgCache.clear();
+
+  let n = 0;
+  try {
+    for await (const p of walkFolder(folderId)) {
+      photos.push(p); n++;
+      if (n % 10 === 0) { el('scan-n').textContent = `${n} images found…`; await yld(); }
+    }
+  } catch(e) {
+    alert('Could not load folder:\n' + e.message);
+    showScreen('s-folder');
+    return;
+  }
+
+  if (!photos.length) { alert('No images found in that folder.'); showScreen('s-folder'); return; }
+
+  showScreen('app');
+  buildControls();
+  await render();
+}
+
+function goToFolder() {
+  clearTimeout(autoTimer);
+  showScreen('s-folder');
+}
+
+// ── Image cache ───────────────────────────────────────────────
+
+async function fetchCached(p) {
+  if (imgCache.has(p.id)) return imgCache.get(p.id);
+  const r = await driveAPI(`https://www.googleapis.com/drive/v3/files/${p.id}?alt=media`);
+  if (!r.ok) throw new Error(`Fetch failed: ${r.status}`);
+  const url = URL.createObjectURL(await r.blob());
+  imgCache.set(p.id, url);
+  if (imgCache.size > 8) {
+    const oldest = imgCache.keys().next().value;
+    URL.revokeObjectURL(imgCache.get(oldest));
+    imgCache.delete(oldest);
+  }
+  return url;
+}
+
+function prefetch(idx) {
+  const p = photos[idx % photos.length];
+  if (p && !imgCache.has(p.id)) fetchCached(p).catch(() => {});
+}
+
+// ── Render ────────────────────────────────────────────────────
+
+async function render() {
+  const p = photos[cur];
+  if (!p) return;
+
+  const img = el('photo');
+  const vid = el('photo-video');
+  const loader = el('img-loading');
+  const isVideo = VIDEO_MIME.has(p.mimeType);
+  const isGif   = p.mimeType === 'image/gif';
+  const isDel    = marked.has(cur);
+
+  if (isVideo) {
+    img.style.display = 'none';
+    vid.style.display = 'block';
+    vid.className = isDel ? 'dim' : '';
+
+    loader.style.display = 'block';
+    try {
+      const url = await fetchCached(p);
+      vid.src = url;
+      vid.load();
+      // Get duration so the timer can cover the full clip
+      effectiveDelay = await new Promise(resolve => {
+        const fallback = setTimeout(() => resolve(Math.max(autoDelay, 10000)), 4000);
+        vid.addEventListener('loadedmetadata', () => {
+          clearTimeout(fallback);
+          resolve(Math.max(autoDelay, Math.ceil(vid.duration * 1000)));
+        }, { once: true });
+      });
+      vid.play().catch(() => {});
+    } catch(e) {
+      console.warn('render error', e);
+      effectiveDelay = Math.max(autoDelay, 10000);
+    } finally {
+      loader.style.display = 'none';
+    }
+  } else {
+    vid.pause();
+    vid.src = '';
+    vid.style.display = 'none';
+    img.style.display = 'block';
+
+    const cached = imgCache.has(p.id);
+    if (!cached) { img.classList.add('loading'); loader.style.display = 'block'; }
+
+    try {
+      img.src = await fetchCached(p);
+    } catch(e) {
+      console.warn('render error', e);
+      img.src = '';
+    } finally {
+      img.classList.remove('loading');
+      loader.style.display = 'none';
+    }
+
+    img.className = isDel ? 'dim' : '';
+    effectiveDelay = isGif ? Math.max(autoDelay, 10000) : autoDelay;
+  }
+
+  el('del-badge').style.display = isDel ? 'block' : 'none';
+  updateUI();
+
+  // Prefetch next 2
+  if (photos.length > 1) prefetch(cur + 1);
+  if (photos.length > 2) prefetch(cur + 2);
+}
+
+function updateUI() {
+  const p = photos[cur];
+  const n = marked.size;
+
+  el('progress').textContent = `${cur + 1} / ${photos.length}`;
+  el('filepath').textContent = p?.path ?? '';
+  el('marked-count').textContent = n ? `${n} marked` : '';
+
+  const mb = el('btn-mark');
+  const isDel = marked.has(cur);
+  if (mb) {
+    mb.textContent = isDel ? '↩ Unmark' : '🗑 Mark';
+    mb.className = isDel ? 'btn btn-ghost' : 'btn btn-danger';
+  }
+  const pb = el('btn-purge');
+  if (pb) { pb.style.display = n ? 'inline-block' : 'none'; pb.textContent = `Purge ${n}`; }
+  const fb = el('btn-fav');
+  if (fb) {
+    const isFav = favorited.has(photos[cur]?.id);
+    fb.className = isFav ? 'btn btn-fav-done' : 'btn btn-fav';
+    fb.textContent = isFav ? '★ Saved' : '★ Fav';
+  }
+}
+
+// ── Navigation ────────────────────────────────────────────────
+
+async function nav(d) {
+  if (rendering) return;
+  cur = (cur + d + photos.length) % photos.length;
+  rendering = true;
+  await render();
+  rendering = false;
+  resetTimer();
+}
+
+async function navRand() {
+  const pool = photos.map((_, i) => i).filter(i => i !== cur);
+  if (!pool.length) return;
+  cur = pool[Math.floor(Math.random() * pool.length)];
+  rendering = true;
+  await render();
+  rendering = false;
+}
+
+// ── Mark ──────────────────────────────────────────────────────
+
+async function toggleMark() {
+  if (marked.has(cur)) {
+    marked.delete(cur);
+    el('photo').className = '';
+    el('del-badge').style.display = 'none';
+    updateUI();
+  } else {
+    marked.add(cur);
+    el('photo').className = 'dim';
+    el('del-badge').style.display = 'block';
+    updateUI();
+    setTimeout(() => nav(1), 280);
+  }
+}
+
+// ── Controls (single mode) ────────────────────────────────────
+
+function buildControls() {
+  el('ctrls').innerHTML = `
+    <button class="btn btn-ghost" onclick="nav(-1)">← Prev</button>
+    <button class="btn btn-danger" id="btn-mark" onclick="toggleMark()">🗑 Mark</button>
+    <button class="btn btn-fav"   id="btn-fav"  onclick="favoritePhoto()">★ Fav</button>
+    <button class="btn btn-ghost" onclick="nav(1)">Next →</button>
+    <div class="sep"></div>
+    <button class="btn btn-ghost" id="btn-pp" onclick="togglePlay()">⏸</button>
+    <input type="range" id="speed-slider" min="300" max="8000" step="100" value="${autoDelay}"
+           oninput="onSpeedChange(this.value)">
+    <span id="speed-label" class="ctrl-lbl">${(autoDelay/1000).toFixed(1)}s</span>
+    <button class="btn btn-ghost" id="btn-rand" onclick="toggleRand()">🔀</button>
+    <div class="sep"></div>
+    <button class="btn btn-danger" id="btn-purge" style="display:none" onclick="askPurge()">Purge</button>
+  `;
+  el('hints').textContent = '← → navigate  ·  D mark  ·  F favorite  ·  Space pause  ·  R random';
+  updateUI();
+  startTimer();
+}
+
+// ── Auto-advance timer ────────────────────────────────────────
+// Uses setTimeout (not setInterval) so each item can use its own effectiveDelay.
+
+function startTimer() {
+  clearTimeout(autoTimer);
+  if (!autoPlaying) return;
+  autoTimer = setTimeout(() => { autoRandom ? navRand() : nav(1); }, effectiveDelay);
+}
+function resetTimer() { if (autoPlaying) startTimer(); }
+
+function togglePlay() {
+  autoPlaying = !autoPlaying;
+  const b = el('btn-pp');
+  if (b) b.textContent = autoPlaying ? '⏸' : '▶';
+  autoPlaying ? startTimer() : clearTimeout(autoTimer);
+}
+
+function toggleRand() {
+  autoRandom = !autoRandom;
+  el('btn-rand')?.classList.toggle('btn-on', autoRandom);
+}
+
+function onSpeedChange(val) {
+  autoDelay = parseInt(val);
+  effectiveDelay = autoDelay; // will be overridden per-item on next render
+  el('speed-label').textContent = (autoDelay / 1000).toFixed(1) + 's';
+  if (autoPlaying) startTimer();
+}
+
+// ── Purge ─────────────────────────────────────────────────────
+
+function askPurge() {
+  const n = marked.size;
+  el('modal-body').textContent =
+    `Permanently delete ${n} photo${n > 1 ? 's' : ''} from Google Drive? This cannot be undone.`;
+  el('modal').style.display = 'flex';
+}
+function closeModal() { el('modal').style.display = 'none'; }
+
+async function doPurge() {
+  const idxs = [...marked].sort((a, b) => b - a);
+  const total = idxs.length;
+
+  // Switch modal to progress view
+  el('modal-box').innerHTML = `
+    <h2>Deleting…</h2>
+    <div id="purge-status">0 of ${total}</div>
+    <div id="purge-bar-wrap"><div id="purge-bar"></div></div>
+  `;
+
+  let done = 0, fail = 0;
+  const succeeded = new Set();
+  const BATCH = 5;
+
+  for (let b = 0; b < idxs.length; b += BATCH) {
+    const batch = idxs.slice(b, b + BATCH);
+    await Promise.allSettled(batch.map(async i => {
+      const p = photos[i];
+      try {
+        const r = await driveAPI(`https://www.googleapis.com/drive/v3/files/${p.id}`, { method: 'DELETE' });
+        if (r.ok || r.status === 204) succeeded.add(i);
+        else { console.warn('Delete returned', r.status, 'for', p.path); fail++; }
+      } catch(e) { console.warn('Delete failed', p.path, e); fail++; }
+      done++;
+      el('purge-status').textContent = `${done} of ${total}`;
+      el('purge-bar').style.width = `${Math.round(done / total * 100)}%`;
+    }));
+  }
+
+  // Remove deleted photos without index-shifting issues
+  photos = photos.filter((_, i) => !succeeded.has(i));
+
+  marked.clear();
+  closeModal();
+  // Restore modal box for next use
+  el('modal-box').innerHTML = `
+    <h2>Delete Forever?</h2>
+    <div id="modal-body"></div>
+    <div class="modal-row">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="doPurge()">Yes, Delete</button>
+    </div>
+  `;
+
+  if (fail) alert(`${fail} file(s) could not be deleted (check Drive permissions).`);
+  if (!photos.length) { showScreen('s-folder'); return; }
+  cur = Math.min(cur, photos.length - 1);
+  render();
+}
+
+// ── Favorites ────────────────────────────────────────────────
+
+async function ensureFavFolder() {
+  if (favFolderId) return favFolderId;
+  const params = new URLSearchParams({
+    q: "name='⭐ Favorites' and mimeType='application/vnd.google-apps.folder' and trashed=false and 'root' in parents",
+    fields: 'files(id)',
+    pageSize: '1',
+  });
+  const r = await driveAPI(`https://www.googleapis.com/drive/v3/files?${params}`);
+  const d = await r.json();
+  if (d.files && d.files.length > 0) { favFolderId = d.files[0].id; return favFolderId; }
+  const cr = await driveAPI('https://www.googleapis.com/drive/v3/files', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name: '⭐ Favorites', mimeType: 'application/vnd.google-apps.folder' }),
+  });
+  const cd = await cr.json();
+  favFolderId = cd.id;
+  return favFolderId;
+}
+
+function favoritePhoto() {
+  const p = photos[cur];
+  if (!p || favorited.has(p.id)) return;
+  // Optimistic: update UI instantly
+  favorited.add(p.id);
+  const badge = el('fav-badge');
+  badge.style.display = 'block';
+  setTimeout(() => { badge.style.display = 'none'; }, 1200);
+  updateUI();
+  // API call in background
+  ensureFavFolder()
+    .then(folderId => driveAPI(`https://www.googleapis.com/drive/v3/files/${p.id}/copy`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ parents: [folderId], name: p.name }),
+    }))
+    .catch(e => {
+      console.error('Favorite failed', e);
+      favorited.delete(p.id);
+      updateUI();
+      el('fav-badge').style.display = 'none';
+    });
+}
+
+// ── Keyboard ──────────────────────────────────────────────────
+
+document.addEventListener('keydown', e => {
+  const appActive = el('app').classList.contains('active');
+  if (!appActive) return;
+  if (el('modal').style.display === 'flex') { if (e.key === 'Escape') closeModal(); return; }
+
+  switch (e.key) {
+    case 'ArrowRight': case 'ArrowDown': e.preventDefault(); nav(1); break;
+    case 'ArrowLeft':  case 'ArrowUp':   e.preventDefault(); nav(-1); break;
+    case 'd': case 'D': case 'Delete': case 'Backspace': e.preventDefault(); toggleMark(); break;
+    case 'f': case 'F': e.preventDefault(); favoritePhoto(); break;
+    case ' ':  e.preventDefault(); togglePlay(); break;
+    case 'r': case 'R': toggleRand(); break;
+  }
+});
+
+// ── Utils ─────────────────────────────────────────────────────
+
+function el(id) { return document.getElementById(id); }
+function yld()  { return new Promise(r => setTimeout(r, 0)); }
+
+function showScreen(id) {
+  ['s-setup','s-folder','s-loading'].forEach(sid => {
+    const e = el(sid);
+    if (!e) return;
+    e.classList.toggle('active', sid === id);
+    e.style.display = sid === id ? 'flex' : 'none';
+  });
+  const appEl = el('app');
+  if (id === 'app') {
+    appEl.classList.add('active');
+    appEl.style.display = 'flex';
+  } else {
+    appEl.classList.remove('active');
+    appEl.style.display = 'none';
+  }
+}
+</script>
+</body>
+</html>
