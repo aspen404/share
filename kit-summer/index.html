@@ -3,169 +3,170 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kit's Summer 2026</title>
+<title>Couch to Redlands — Kit's Summer 2026</title>
 <style>
   :root{
     --bg:#f6f4ef; --card:#ffffff; --ink:#2f3338; --muted:#7c8590;
     --line:#e7e3da; --sage:#6f9a86; --sage-soft:#eaf2ed;
-    --blue:#5b7fa6; --blue-soft:#e9f0f6; --amber:#caa24a; --amber-soft:#f8f1dd;
+    --blue:#5b7fa6; --amber:#caa24a; --amber-soft:#f8f1dd;
+    --rest:#e9eef2; --rest-ink:#5b7fa6;
     --shadow:0 1px 3px rgba(40,40,40,.06),0 6px 18px rgba(40,40,40,.05);
     --radius:16px;
   }
   *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
+  body{margin:0; background:var(--bg); color:var(--ink);
     font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:880px; margin:0 auto; padding:32px 20px 80px}
-  header.top{margin-bottom:8px}
-  h1{font-size:30px; margin:0 0 4px; letter-spacing:-.5px}
-  .sub{color:var(--muted); margin:0 0 6px}
-  .legend{color:var(--muted); font-size:13px; margin:14px 0 26px}
-  .legend .star{color:var(--amber)}
-  section{margin:26px 0}
-  h2{font-size:16px; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted); margin:0 0 12px; font-weight:700}
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:720px; margin:0 auto; padding:32px 20px 80px}
+  h1{font-size:28px; margin:0 0 4px; letter-spacing:-.5px}
+  .sub{color:var(--muted); margin:0 0 18px}
+  .how{background:var(--sage-soft); border:1px solid #d9e7df; border-radius:14px; padding:12px 16px; color:#456; font-size:14.5px; margin:0 0 26px}
+  .how b{color:var(--sage)}
 
-  /* Calendar timeline */
-  .cal{display:flex; flex-direction:column; gap:18px}
-  .month{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden}
-  .month h3{margin:0; padding:12px 18px; font-size:14px; letter-spacing:1px; text-transform:uppercase; color:#fff; background:var(--sage)}
-  .month.jul h3{background:#6b8fb0}
-  .month.aug h3{background:#b08a57}
-  .month.sep h3{background:#8a7fa6}
-  .ev{display:flex; gap:14px; padding:11px 18px; border-top:1px solid var(--line); align-items:baseline}
-  .ev:first-of-type{border-top:none}
-  .ev .when{flex:0 0 132px; color:var(--muted); font-size:13.5px; font-variant-numeric:tabular-nums}
-  .ev .what{flex:1}
-  .ev .what b{font-weight:600}
-  .tag{display:inline-block; font-size:11px; padding:2px 9px; border-radius:999px; margin-left:8px; vertical-align:middle; white-space:nowrap}
-  .tag.trip{background:var(--blue-soft); color:var(--blue)}
-  .tag.school{background:var(--sage-soft); color:var(--sage)}
-  .tag.fun{background:#f4ecd9; color:var(--amber)}
-  .tag.due{background:var(--amber-soft); color:#9a7a2e}
-  .note{font-size:13px; color:var(--muted); padding:10px 18px; background:#fbfaf7; border-top:1px dashed var(--line)}
+  .progress{display:flex; align-items:center; gap:10px; margin:0 0 24px; color:var(--muted); font-size:13px}
+  .bar{flex:1; height:8px; background:#e7e3da; border-radius:99px; overflow:hidden}
+  .bar i{display:block; height:100%; background:var(--sage); width:0}
 
-  /* Checklists */
-  .group{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:6px 6px 8px; margin-bottom:18px}
-  .group h3{margin:0; padding:12px 14px 6px; font-size:18px}
-  .group .blurb{padding:0 14px 8px; color:var(--muted); font-size:14px; margin:0}
-  label.item{display:flex; gap:12px; align-items:flex-start; padding:10px 14px; border-radius:12px; cursor:pointer; transition:background .12s}
+  .wk{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 18px; margin-bottom:14px; transition:opacity .2s}
+  .wk.past{opacity:.6}
+  .wk.here{border:2px solid var(--sage); box-shadow:0 0 0 4px var(--sage-soft), var(--shadow)}
+  .wk-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:2px}
+  .wk-num{font-weight:800; font-size:13px; letter-spacing:.5px; text-transform:uppercase; color:var(--sage)}
+  .wk-dates{color:var(--muted); font-size:13px; font-variant-numeric:tabular-nums}
+  .badge{margin-left:auto; font-size:11px; font-weight:700; padding:3px 10px; border-radius:99px}
+  .badge.here{background:var(--sage); color:#fff}
+  .badge.rest{background:var(--rest); color:var(--rest-ink)}
+  .badge.finish{background:var(--amber-soft); color:#9a7a2e}
+  .wk-theme{font-size:18px; margin:4px 0 10px}
+  .rest .wk-theme{color:var(--rest-ink)}
+
+  label.item{display:flex; gap:11px; align-items:flex-start; padding:9px 8px; border-radius:11px; cursor:pointer; transition:background .12s}
   label.item:hover{background:#faf9f5}
-  label.item input{appearance:none; -webkit-appearance:none; flex:0 0 22px; height:22px; margin-top:1px; border:2px solid #cfd4cf; border-radius:7px; background:#fff; cursor:pointer; position:relative; transition:all .12s}
+  label.item input{appearance:none; -webkit-appearance:none; flex:0 0 21px; height:21px; margin-top:1px; border:2px solid #cfd4cf; border-radius:7px; background:#fff; cursor:pointer; position:relative; transition:all .12s}
   label.item input:checked{background:var(--sage); border-color:var(--sage)}
-  label.item input:checked::after{content:"✓"; color:#fff; font-size:14px; position:absolute; top:-1px; left:4px}
+  label.item input:checked::after{content:"✓"; color:#fff; font-size:13px; position:absolute; top:-1px; left:4px}
   label.item .txt{flex:1}
   label.item input:checked ~ .txt{color:var(--muted); text-decoration:line-through; text-decoration-color:#cdd2cb}
   .txt .due{color:#9a7a2e; font-weight:600}
-  .txt .star{color:var(--amber)}
   .txt small{display:block; color:var(--muted); font-size:13px; margin-top:1px; text-decoration:none !important}
+  .restnote{color:var(--rest-ink); font-size:14.5px; margin:2px 4px 0}
+  .wk-foot{margin:10px 4px 0; padding-top:10px; border-top:1px dashed var(--line); color:var(--muted); font-size:13.5px}
+  .finishnote{font-size:15px; margin:2px 4px}
+  .finishnote b{color:var(--ink)}
 
-  .reset{margin-top:18px; text-align:center}
+  .reset{margin-top:22px; text-align:center}
   .reset button{background:none; border:1px solid var(--line); color:var(--muted); padding:8px 16px; border-radius:999px; font-size:13px; cursor:pointer}
   .reset button:hover{background:#fff}
   .foot{text-align:center; color:var(--muted); font-size:12.5px; margin-top:10px}
-  @media print{ body{background:#fff} .group,.month{box-shadow:none} .reset{display:none} }
+  @media print{ body{background:#fff} .wk{box-shadow:none; opacity:1 !important} .reset{display:none} }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header class="top">
-    <h1>Kit's Summer 2026 ☀️</h1>
-    <p class="sub">Your map for the summer — fun stuff, trips, and a few grown-up things to knock out before Redlands.</p>
-  </header>
-  <p class="legend">Tap a box to check it off — your progress saves on this device. <span class="star">⭐</span> = a little time-sensitive, worth not leaving to the last minute. No pressure on the rest — downtime is part of the plan.</p>
+  <h1>Couch to Redlands 🛋️ → 🎓</h1>
+  <p class="sub">Kit's summer, one easy week at a time.</p>
+  <p class="how">Just look at <b>this week</b> — it's highlighted for you. Do those one or two things and you're on track. Some weeks are rest weeks; those are for fun, not lists.</p>
 
-  <!-- CALENDAR -->
-  <section>
-    <h2>The Summer at a Glance</h2>
-    <div class="cal">
+  <div class="progress"><span id="pweek">Week — of 11</span><div class="bar"><i id="pbar"></i></div></div>
 
-      <div class="month jun">
-        <h3>June</h3>
-        <div class="ev"><div class="when">Fri Jun 12</div><div class="what">San Diego County Fair <span class="tag fun">fun</span></div></div>
-        <div class="ev"><div class="when">Mon Jun 15 – Fri Jun 26</div><div class="what"><b>Beetlejuice Jr.</b> theater camp <span class="tag fun">camp</span></div></div>
-        <div class="ev"><div class="when">Mon Jun 15</div><div class="what">Redlands forms due: Housing Intention · BARQ · health insurance <span class="tag due">⭐ due</span></div></div>
-        <div class="ev"><div class="when">Mon Jun 22</div><div class="what">Redlands placement assessments due (Quant · Language · Writing) <span class="tag due">⭐ due</span></div></div>
-      </div>
+  <!-- WEEK 1 -->
+  <div class="wk" data-start="2026-06-05" data-end="2026-06-15">
+    <div class="wk-head"><span class="wk-num">Week 1</span><span class="wk-dates">now – Jun 15</span></div>
+    <h3 class="wk-theme">Knock out the big Redlands forms</h3>
+    <label class="item"><input type="checkbox" data-k="deposit"><span class="txt">Confirm the $350 deposit is paid<small>Quick ask to Dad — it unlocks everything else.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="forms615"><span class="txt">One login to MyRedlands, three forms <span class="due">— by Jun 15</span><small>In a single sitting: Housing Intention Form, BARQ questionnaire, and pick health insurance (waive/enroll). While you're in there, peek at roommate profiles.</small></span></label>
+    <p class="wk-foot">🎡 Fun this week: San Diego County Fair — Fri Jun 12.</p>
+  </div>
 
-      <div class="month jul">
-        <h3>July</h3>
-        <div class="ev"><div class="when">Tue Jul 7 – Sat Jul 18</div><div class="what"><b>Vancouver</b> with the family <span class="tag trip">trip</span></div></div>
-        <div class="ev"><div class="when">Sun Jul 26 – Sat Aug 1</div><div class="what"><b>Florida</b> — visiting family <span class="tag trip">trip</span></div></div>
-      </div>
+  <!-- WEEK 2 -->
+  <div class="wk" data-start="2026-06-15" data-end="2026-06-22">
+    <div class="wk-head"><span class="wk-num">Week 2</span><span class="wk-dates">Jun 15 – 22</span></div>
+    <h3 class="wk-theme">Three quick placement tests</h3>
+    <label class="item"><input type="checkbox" data-k="placements"><span class="txt">Quant · Language · Writing placements <span class="due">— by Jun 22</span><small>Online, self-paced. You've got 4 years of Spanish — you might place high.</small></span></label>
+    <p class="wk-foot">🎭 Beetlejuice Jr. camp this week (Jun 15–26) — enjoy it.</p>
+  </div>
 
-      <div class="month aug">
-        <h3>August</h3>
-        <div class="ev"><div class="when">Sat Aug 8 – Sun Aug 16</div><div class="what"><b>Tokyo</b> with Dad <span class="tag trip">trip</span></div></div>
-        <div class="ev"><div class="when">Fri Aug 21</div><div class="what"><b>Redlands FYJ move-in</b> 📦 <span class="tag school">Redlands</span></div></div>
-        <div class="ev"><div class="when">Sat Aug 22 – Thu Aug 27</div><div class="what">First-Year Johnston orientation (FYJ) <span class="tag school">Redlands</span></div></div>
-        <div class="note">Johnston perk: you move in a week before the campus-wide crowd (Aug 28) — smaller group, time to settle in first. 🙌</div>
-      </div>
+  <!-- WEEK 3 -->
+  <div class="wk" data-start="2026-06-22" data-end="2026-06-29">
+    <div class="wk-head"><span class="wk-num">Week 3</span><span class="wk-dates">Jun 22 – 28</span></div>
+    <h3 class="wk-theme">Two small wins</h3>
+    <label class="item"><input type="checkbox" data-k="johnston"><span class="txt">Email johnston@redlands.edu<small>"What should I do this summer to prep for Johnston?" Good first rep — you, not Dad.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="dentist"><span class="txt">Pick a dentist & book a visit<small>Dad already narrowed it to two good options — just pick one and call.</small></span></label>
+    <p class="wk-foot">🎉 Camp wraps Fri Jun 26.</p>
+  </div>
 
-      <div class="month sep">
-        <h3>September</h3>
-        <div class="ev"><div class="when">Tue Sep 1</div><div class="what"><b>Fall classes start</b> 🎓 <span class="tag school">Redlands</span></div></div>
-      </div>
+  <!-- WEEK 4 -->
+  <div class="wk" data-start="2026-06-29" data-end="2026-07-07">
+    <div class="wk-head"><span class="wk-num">Week 4</span><span class="wk-dates">Jun 29 – Jul 6</span></div>
+    <h3 class="wk-theme">Health, passport, then pack</h3>
+    <label class="item"><input type="checkbox" data-k="doctor"><span class="txt">Book a doctor check-up<small>Ask them to fill out the Redlands immunization form while you're there — two things, one visit.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="passport"><span class="txt">Check your passport<small>Make sure it's valid past mid-Feb 2027 (you'll need it for Tokyo). Renewals take weeks — check now.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="packvan"><span class="txt">Pack for Vancouver<small>You leave Jul 7. Light packing, bring your passport.</small></span></label>
+  </div>
 
-    </div>
-  </section>
+  <!-- WEEK 5 — REST -->
+  <div class="wk rest" data-start="2026-07-07" data-end="2026-07-19">
+    <div class="wk-head"><span class="wk-num">Week 5</span><span class="wk-dates">Jul 7 – 18</span><span class="badge rest">Rest week 🌲</span></div>
+    <h3 class="wk-theme">Vancouver — just enjoy it</h3>
+    <p class="restnote">Nothing on the list this week. Have fun with the family.</p>
+  </div>
 
-  <!-- LIFE ADMIN -->
-  <section>
-    <h2>Things to Take Care Of</h2>
+  <!-- WEEK 6 -->
+  <div class="wk" data-start="2026-07-19" data-end="2026-07-26">
+    <div class="wk-head"><span class="wk-num">Week 6</span><span class="wk-dates">Jul 19 – 25</span></div>
+    <h3 class="wk-theme">Ease back in</h3>
+    <label class="item"><input type="checkbox" data-k="room1"><span class="txt">Start the room refresh ✨<small>Just one small zone — a drawer, the desk, one corner. Set a 15-minute timer and stop when it dings. That's a full win.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="car"><span class="txt">Check the car<small>See if it's due for an oil change / maintenance; book it if so.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="packfl"><span class="txt">Get ready for Florida<small>You leave Jul 26. Save the address + a backup phone number, know your flight times, meds + charger in your carry-on.</small></span></label>
+  </div>
 
-    <div class="group">
-      <h3>🦷 Grown-up admin</h3>
-      <p class="blurb">The boring-but-real stuff. Knocking these out early means they're not hanging over you in August.</p>
-      <label class="item"><input type="checkbox" data-k="dentist"><span class="txt">Pick a dentist & book a first visit<small>Dad already narrowed it to two good options — you just need to pick one and call to book an intake.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="doctor"><span class="txt">Schedule a doctor check-up <span class="star">⭐</span><small>Ask them to fill out the Redlands <b>Immunization Attestation</b> while you're there — knocks out two things in one visit.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="caroil"><span class="txt">Check if the car is due for an oil change / maintenance<small>Look up the last service date; book it if it's due.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="carcheck"><span class="txt">Quick car once-over before any solo driving<small>Tires, fluids, registration current, a full tank. 10 minutes.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="cal"><span class="txt">Put all the summer dates in your own phone calendar<small>So the reminders are yours, not Dad's.</small></span></label>
-    </div>
+  <!-- WEEK 7 — REST -->
+  <div class="wk rest" data-start="2026-07-26" data-end="2026-08-02">
+    <div class="wk-head"><span class="wk-num">Week 7</span><span class="wk-dates">Jul 26 – Aug 1</span><span class="badge rest">Rest week ✈️</span></div>
+    <h3 class="wk-theme">Florida — enjoy your trip</h3>
+    <p class="restnote">Visiting family in Florida. Soak it up.</p>
+  </div>
 
-    <div class="group">
-      <h3>🎓 Redlands — before you go</h3>
-      <p class="blurb">Your lane. Dad's tracking the money side; these are the ones only you can do.</p>
-      <label class="item"><input type="checkbox" data-k="deposit"><span class="txt">Confirm the $350 enrollment deposit is paid<small>If you're not sure, ask Dad — it unlocks everything else.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="housing"><span class="txt">Housing Intention Form <span class="due">— due Mon Jun 15</span> <span class="star">⭐</span><small>MyRedlands Housing Portal. This one drives your room + roommate match.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="barq"><span class="txt">BARQ advising/registration questionnaire <span class="due">— due Mon Jun 15</span> <span class="star">⭐</span><small>Builds your first-semester schedule. Pair it with the housing form.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="insurance"><span class="txt">Decide on student health insurance — waive or enroll <span class="due">— due Mon Jun 15</span><small>Ask Mom/Dad about the family plan first.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="roommate"><span class="txt">Roommate selection — browse profiles, then decide<small>You can actively pick someone <em>or</em> let Redlands match you. Both are totally fine.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="placement"><span class="txt">Placement assessments: Quant · Language · Writing <span class="due">— due Mon Jun 22</span> <span class="star">⭐</span><small>You've got 4 years of Spanish — you might place into a higher level.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="johnston"><span class="txt">Email johnston@redlands.edu<small>Ask: "What should I do this summer to prep for Johnston?" Good first rep — you, not Dad.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="support"><span class="txt">Get to know the support at Redlands<small>Have a look at what's there for you — the counseling center and accessibility services (handy for Johnston accommodations). Nice to know where things are before you ever need them.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="latesummer"><span class="txt">Late-summer wrap-up (early August)<small>Final HS transcript sent · ID photo submitted · Title IX online training · RSVP for orientation.</small></span></label>
-    </div>
+  <!-- WEEK 8 -->
+  <div class="wk" data-start="2026-08-02" data-end="2026-08-08">
+    <div class="wk-head"><span class="wk-num">Week 8</span><span class="wk-dates">Aug 2 – 7</span></div>
+    <h3 class="wk-theme">Tokyo prep</h3>
+    <label class="item"><input type="checkbox" data-k="japanese"><span class="txt">Learn a few Japanese phrases 🇯🇵<small>5 minutes a day — "hello," "thank you," "where is…". Makes the trip more fun. No pressure to get fluent.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="packtok"><span class="txt">Pack for Tokyo<small>Comfy walking shoes, download offline maps (Yahoo! Map Japan). Tell Dad anything you want to add to the plan.</small></span></label>
+  </div>
 
-    <div class="group">
-      <h3>✈️ Trip prep</h3>
-      <p class="blurb">A little prep makes the travel feel calm instead of rushed.</p>
-      <label class="item"><input type="checkbox" data-k="passport"><span class="txt">Check your passport <span class="star">⭐</span><small>Make sure it's valid for at least 6 months past Tokyo (mid-Feb 2027). Renewals take weeks — check now.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="florida"><span class="txt">Florida trip kit<small>Save the address + a backup phone number · know your flight times · meds + charger in your carry-on · screenshot the boarding pass.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="tokyo"><span class="txt">Tokyo prep<small>Comfy walking shoes · download offline maps (Yahoo! Map Japan) · tell Dad anything you want to add to the plan.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="vancouver"><span class="txt">Vancouver (easy one)<small>Light packing, bring your passport.</small></span></label>
-    </div>
+  <!-- WEEK 9 — REST -->
+  <div class="wk rest" data-start="2026-08-08" data-end="2026-08-17">
+    <div class="wk-head"><span class="wk-num">Week 9</span><span class="wk-dates">Aug 8 – 16</span><span class="badge rest">Rest week 🗼</span></div>
+    <h3 class="wk-theme">Tokyo — enjoy it</h3>
+    <p class="restnote">You're in Tokyo with Dad. Be there for it — the list can wait.</p>
+  </div>
 
-    <div class="group">
-      <h3>🌱 Just for you</h3>
-      <p class="blurb">Optional. This is the last summer at home — make a little of it yours.</p>
-      <label class="item"><input type="checkbox" data-k="room"><span class="txt">Give your room a refresh ✨<small>Not all at once — pick one small zone (a drawer, the desk, one corner), set a 15-minute timer, and stop when it dings. Little resets add up, and a fresh space feels good heading into a big year. Reward yourself after a few rounds.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="japanese"><span class="txt">Learn a little Japanese before Tokyo 🇯🇵<small>Even 5–10 phrases makes the trip more fun — "hello," "thank you," "where is…". Five minutes of Duolingo a day is plenty. No pressure to get fluent.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="local"><span class="txt">Pick one local art or theater thing you'd actually enjoy<small>Two relaxed commitments beat five stressful ones. There's a 92129 shortlist if you want ideas.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="downtime"><span class="txt">Plan a little nothing<small>Downtime is part of the design, not a thing to feel behind on.</small></span></label>
-      <label class="item"><input type="checkbox" data-k="beforecollege"><span class="txt">Anything you want to do before living away from home?<small>A place to go, a person to see, a thing to try. Your call.</small></span></label>
-    </div>
+  <!-- WEEK 10 -->
+  <div class="wk" data-start="2026-08-17" data-end="2026-08-21">
+    <div class="wk-head"><span class="wk-num">Week 10</span><span class="wk-dates">Aug 17 – 20</span></div>
+    <h3 class="wk-theme">Move-in countdown</h3>
+    <label class="item"><input type="checkbox" data-k="wrap"><span class="txt">Redlands wrap-up<small>Confirm your final HS transcript was sent · submit your ID photo · finish the Title IX online training · RSVP for orientation.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="support"><span class="txt">Get to know the support at Redlands<small>Peek at the counseling center and accessibility services (handy for Johnston accommodations) — nice to know where things are before you need them.</small></span></label>
+    <label class="item"><input type="checkbox" data-k="packmove"><span class="txt">Pack for move-in<small>A couple more room-refresh rounds, then pack what's coming with you.</small></span></label>
+  </div>
 
-    <div class="reset"><button onclick="if(confirm('Clear all checkmarks?')){localStorage.removeItem(KEY);document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false)}">Reset checklist</button></div>
-    <p class="foot">Made for Kit · Summer 2026 · checkmarks save on this device only</p>
-  </section>
+  <!-- WEEK 11 — FINISH -->
+  <div class="wk" data-start="2026-08-21" data-end="2026-09-02">
+    <div class="wk-head"><span class="wk-num">Week 11</span><span class="wk-dates">Aug 21 →</span><span class="badge finish">Finish line 🎉</span></div>
+    <h3 class="wk-theme">Move-in day</h3>
+    <p class="finishnote"><b>Fri Aug 21</b> — Johnston move-in (a week ahead of the crowd). <b>Aug 22–27</b> — FYJ orientation. <b>Tue Sep 1</b> — first day of classes. You did it. 🎓</p>
+    <label class="item"><input type="checkbox" data-k="movein"><span class="txt">Move in & settle into Johnston</span></label>
+  </div>
+
+  <div class="reset"><button onclick="if(confirm('Clear all checkmarks?')){localStorage.removeItem(KEY);document.querySelectorAll('input[type=checkbox]').forEach(c=>c.checked=false)}">Reset checklist</button></div>
+  <p class="foot">Made for Kit · Summer 2026 · checkmarks save on this device</p>
 
 </div>
 <script>
-  const KEY="kit_summer_2026";
+  const KEY="kit_c2r_2026";
+  // restore checks
   const saved=JSON.parse(localStorage.getItem(KEY)||"{}");
   document.querySelectorAll('input[type=checkbox]').forEach(c=>{
     if(saved[c.dataset.k]) c.checked=true;
@@ -174,6 +175,26 @@
       s[c.dataset.k]=c.checked; localStorage.setItem(KEY,JSON.stringify(s));
     });
   });
+  // highlight the current week
+  const weeks=[...document.querySelectorAll('.wk')];
+  const today=new Date(); today.setHours(0,0,0,0);
+  let current=-1;
+  weeks.forEach((w,i)=>{
+    const s=new Date(w.dataset.start+"T00:00:00"), e=new Date(w.dataset.end+"T00:00:00");
+    if(today>=e) w.classList.add('past');
+    if(today>=s && today<e) current=i;
+  });
+  if(current<0 && today<new Date(weeks[0].dataset.start+"T00:00:00")) current=0; // before it starts
+  if(current>=0){
+    const w=weeks[current]; w.classList.remove('past'); w.classList.add('here');
+    const b=document.createElement('span'); b.className='badge here'; b.textContent="You're here";
+    if(!w.querySelector('.badge')) w.querySelector('.wk-head').appendChild(b);
+    document.getElementById('pweek').textContent="Week "+(current+1)+" of "+weeks.length;
+    document.getElementById('pbar').style.width=Math.round((current+1)/weeks.length*100)+"%";
+  } else { // after the program
+    document.getElementById('pweek').textContent="All "+weeks.length+" weeks done 🎉";
+    document.getElementById('pbar').style.width="100%";
+  }
 </script>
 </body>
 </html>
