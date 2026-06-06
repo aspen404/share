@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Twin Adjustable Base — Downstairs Bed</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --card: #1a2029;
+    --card-hi: #222a35;
+    --ink: #e8edf2;
+    --muted: #9aa7b4;
+    --line: #2c3540;
+    --accent: #5b9dff;
+    --good: #4ade80;
+    --bad: #4b5563;
+    --gold: #f5c451;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { margin-bottom: 28px; }
+  h1 { font-size: 2.1rem; margin: 0 0 8px; letter-spacing: -0.02em; }
+  .sub { color: var(--muted); font-size: 1.05rem; max-width: 640px; }
+
+  .pick {
+    background: linear-gradient(135deg, rgba(91,157,255,0.12), rgba(74,222,128,0.08));
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    padding: 24px 26px;
+    margin: 28px 0 40px;
+  }
+  .pick .label { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 8px; }
+  .pick h2 { margin: 0 0 6px; font-size: 1.45rem; }
+  .pick p { margin: 8px 0 0; color: var(--muted); font-size: 0.96rem; }
+  .pick .meta { color: var(--ink); font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 0 0 48px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: flex; flex-direction: column; }
+  .card.top { border-color: var(--accent); box-shadow: 0 0 0 1px rgba(91,157,255,0.25); }
+  .tag { display: inline-block; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 9px; border-radius: 999px; margin-bottom: 12px; align-self: flex-start; }
+  .tag.rec { background: rgba(91,157,255,0.15); color: var(--accent); }
+  .tag.value { background: rgba(74,222,128,0.15); color: var(--good); }
+  .tag.flagship { background: rgba(245,196,81,0.15); color: var(--gold); }
+  .tag.therapy { background: rgba(154,167,180,0.15); color: var(--muted); }
+  .card h2 { font-size: 1.18rem; margin: 0 0 4px; }
+  .card .price { font-size: 1.3rem; font-weight: 700; margin: 6px 0 2px; }
+  .card .price small { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+  .card .why { color: var(--muted); font-size: 0.9rem; margin-top: 10px; }
+
+  .table-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.93rem; min-width: 680px; }
+  th, td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--line); }
+  thead th { background: var(--card-hi); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  tbody tr:last-child td { border-bottom: none; }
+  td.feat { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  tbody tr:hover td { background: rgba(255,255,255,0.02); }
+  .yes { color: var(--good); font-weight: 600; }
+  .no { color: var(--bad); }
+  .cell-muted { color: var(--muted); }
+
+  .section-title { font-size: 1.3rem; margin: 48px 0 16px; letter-spacing: -0.01em; }
+
+  .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 20px; }
+  .note { background: var(--card); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 18px 20px; }
+  .note h3 { margin: 0 0 6px; font-size: 1rem; }
+  .note p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+  .note.warn { border-left-color: var(--gold); }
+
+  footer { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.82rem; }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .src { margin-top: 8px; }
+  .src a { margin-right: 14px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Twin Adjustable Base — Downstairs Bed</h1>
+    <p class="sub">Picking a single-sleeper adjustable power base for the downstairs bed. One person, one side — so independent split-king controls don't matter here. The choice comes down to comfort presets, optional extras, and price.</p>
+  </header>
+
+  <div class="pick">
+    <div class="label">Recommended</div>
+    <h2>TEMPUR-Ease 4.0 (Twin / Twin XL)</h2>
+    <p class="meta">Carried locally at Jerome's · entry-level Tempur-Pedic base · confirm current twin price in-store</p>
+    <p>For a single sleeper, this is the practical buy. It nails the essentials — full head/foot articulation, the <strong>Zero-Gravity preset</strong> (the position that takes pressure off the back), position memory so it won't drift flat overnight, a wireless backlit remote, and adjustable legs. The premium extras (massage, snore-response, sleep tracking) matter most for couples and tech lovers; for one person who mainly wants to elevate and relax, you're not missing much by skipping them. Buy it locally, see it in person, done.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card top">
+      <span class="tag rec">Recommended</span>
+      <h2>TEMPUR-Ease 4.0</h2>
+      <div class="price">Confirm in-store <small>/ twin</small></div>
+      <p class="why">Local at Jerome's. Essentials done well — Zero-G, position memory, quiet. The sensible single-sleeper pick.</p>
+    </div>
+    <div class="card">
+      <span class="tag value">Best value</span>
+      <h2>Saatva Adjustable Base Plus</h2>
+      <div class="price">from ~$1,249 <small>/ twin XL</small></div>
+      <p class="why">More features for the money: massage, USB, under-bed light, snore preset — plus white-glove delivery + old-frame haul-away.</p>
+    </div>
+    <div class="card">
+      <span class="tag flagship">Tech step-up</span>
+      <h2>TEMPUR-Ergo (Power / Extend)</h2>
+      <div class="price">~$1,599–1,899 <small>/ twin XL</small></div>
+      <p class="why">Same family as the Ease, with massage, snore-relief tilt, lumbar lift, and (on Extend) QuietMode + 4-zone massage.</p>
+    </div>
+    <div class="card">
+      <span class="tag therapy">Therapy option</span>
+      <h2>Reverie</h2>
+      <div class="price">~$1,799+ <small>/ twin XL (5.0)</small></div>
+      <p class="why">Dual-tilt inversion the others lack, quietest motors, snore detection. Note: 10-yr warranty excludes motors/electronics.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Feature-by-feature (single base)</h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Ease 4.0</th>
+          <th>Saatva Plus</th>
+          <th>Ergo / Extend</th>
+          <th>Reverie</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feat">Approx. price (twin / twin XL)</td><td>Confirm in-store</td><td>from ~$1,249</td><td>~$1,599–1,899</td><td>~$1,799+ (5.0)</td></tr>
+        <tr><td class="feat">Head &amp; foot articulation</td><td class="yes">Yes (57&deg; / 46&deg;)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        <tr><td class="feat">Zero-gravity preset</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        <tr><td class="feat">Position memory</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        <tr><td class="feat">Massage</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes (3-level)</td><td class="yes">Yes</td></tr>
+        <tr><td class="feat">Snore-relief tilt</td><td class="no">No</td><td class="yes">Yes (7&deg;)</td><td class="yes">Yes</td><td class="yes">Auto (+12&deg;)</td></tr>
+        <tr><td class="feat">Sleep tracking app</td><td class="no">No</td><td class="no">No</td><td class="cell-muted">Smart models</td><td class="yes">Sleeptracker-AI</td></tr>
+        <tr><td class="feat">Inversion / dual-tilt</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td></tr>
+        <tr><td class="feat">Under-bed lighting</td><td class="no">No</td><td class="yes">Yes</td><td class="cell-muted">Smart models</td><td class="cell-muted">Some models</td></tr>
+        <tr><td class="feat">USB charging</td><td class="no">No</td><td class="yes">Yes</td><td class="cell-muted">Smart models</td><td class="cell-muted">Varies</td></tr>
+        <tr><td class="feat">Adjustable legs / zero clearance</td><td class="yes">Yes (3/6/9/12")</td><td class="cell-muted">Standard legs</td><td class="yes">Yes</td><td class="cell-muted">Varies</td></tr>
+        <tr><td class="feat">White-glove delivery + haul-away</td><td class="cell-muted">Via retailer</td><td class="yes">Included</td><td class="cell-muted">Via retailer</td><td class="cell-muted">Via retailer</td></tr>
+        <tr><td class="feat">Trial period</td><td class="cell-muted">Retailer policy</td><td class="cell-muted">365-night (mattress); base non-returnable</td><td class="cell-muted">Retailer policy</td><td class="cell-muted">Retailer policy</td></tr>
+        <tr><td class="feat">Warranty highlight</td><td class="cell-muted">Standard</td><td>25 yr / 5 yr full</td><td>25 yr / 3 yr full</td><td class="cell-muted">10 yr (excl. motor)</td></tr>
+        <tr><td class="feat">See it locally</td><td class="yes">Yes (Jerome's)</td><td class="no">Online</td><td class="cell-muted">Many stores</td><td class="cell-muted">Select stores</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 class="section-title">Before buying — the things that actually matter</h2>
+  <div class="notes">
+    <div class="note warn">
+      <h3>Twin XL, not standard twin</h3>
+      <p>Standard twin is 75" long; Twin XL is 80" — the same length as a king/queen. Most adjustable bases are stocked in Twin XL, and the extra 5" matters for anyone average height or taller. Go Twin XL unless space forces standard twin.</p>
+    </div>
+    <div class="note warn">
+      <h3>The mattress must flex</h3>
+      <p>An adjustable base only works with a bendable mattress — memory foam, latex, or pocketed-coil hybrid. A rigid innerspring or stiff pillow-top won't flex and can be damaged. Check what's on the bed now before buying the base.</p>
+    </div>
+    <div class="note">
+      <h3>Zero-Gravity is the feature that counts</h3>
+      <p>For comfort and pressure relief, the Zero-Gravity preset does the heavy lifting — and every base here has it. Massage and lighting are nice-to-haves, not deal-makers for a single sleeper.</p>
+    </div>
+    <div class="note">
+      <h3>Buy where you can see it</h3>
+      <p>An adjustable base is hard to judge online. The Ease 4.0 being on a local showroom floor is a real advantage — lie on it, run the remote, confirm the noise level before committing.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title">Bottom line</h2>
+  <div class="notes">
+    <div class="note"><h3>Just want it handled</h3><p><strong>TEMPUR-Ease 4.0</strong>, Twin XL, from Jerome's. Sensible, local, all the essentials.</p></div>
+    <div class="note"><h3>Want more features per dollar</h3><p><strong>Saatva Adjustable Base Plus</strong> — massage, lighting, USB, and delivery + haul-away included.</p></div>
+    <div class="note"><h3>Want the Tempur tech</h3><p><strong>TEMPUR-Ergo / Extend</strong> — massage, snore tilt, lumbar lift; Extend adds QuietMode.</p></div>
+    <div class="note"><h3>Want inversion therapy</h3><p><strong>Reverie</strong> — dual-tilt and the quietest motors; just mind the motor-warranty exclusion.</p></div>
+  </div>
+
+  <footer>
+    <div>Prices are approximate and change often — Twin XL figures are estimated from current Queen/starting prices and the Ease 4.0 twin price should be confirmed at the retailer. Compiled June 2026.</div>
+    <div class="src">
+      <a href="https://www.tempurpedic.com/bases-and-foundations/" target="_blank" rel="noopener">Tempur-Pedic</a>
+      <a href="https://reverie.com/pages/top-adjustable-bed-guide-pain-relief-sleep-support" target="_blank" rel="noopener">Reverie</a>
+      <a href="https://www.sleepfoundation.org/best-adjustable-bed/best-split-king-adjustable-bed" target="_blank" rel="noopener">Sleep Foundation</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
