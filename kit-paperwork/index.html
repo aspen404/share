@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A little grown-up paperwork</title>
+<style>
+  :root {
+    --ink: #25282b;
+    --muted: #6c7378;
+    --accent: #5b8068;        /* calm sage — warm, not clinical */
+    --accent-soft: #eaf1ec;
+    --rule: #e4e0d7;
+    --soft: #f3f1ea;
+    --paper: #fbfaf6;
+    --field: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #efece4;
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino", Georgia, serif;
+    font-size: 17px; line-height: 1.6;
+  }
+  .page {
+    max-width: 680px; margin: 0 auto;
+    background: var(--paper);
+    padding: 44px 40px 64px;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+  }
+  h1, h2, h3, .pretitle, .ui { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .pretitle { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  h1 { font-size: 33px; line-height: 1.12; font-weight: 400; margin: 0 0 18px; letter-spacing: -0.01em; font-family: "Iowan Old Style","Palatino",Georgia,serif; }
+  .lede { font-size: 18px; color: var(--ink); margin: 0 0 16px; }
+  p { margin: 0 0 14px; }
+  .pointbox {
+    background: var(--accent-soft); border-radius: 8px;
+    padding: 16px 20px; margin: 22px 0; font-size: 17px; line-height: 1.55;
+  }
+  .pointbox strong { color: var(--accent); }
+  .reassure { color: var(--muted); font-style: italic; font-size: 15.5px; }
+  hr.div { border: none; border-top: 1px solid var(--rule); margin: 34px 0 28px; }
+
+  h2.docs-head { font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0 0 6px; }
+
+  .card {
+    background: var(--field); border: 1px solid var(--rule); border-radius: 10px;
+    padding: 20px 22px; margin: 18px 0;
+  }
+  .card h3 { margin: 0 0 4px; font-size: 19px; font-weight: 600; font-family: "Iowan Old Style","Palatino",Georgia,serif; }
+  .card .alias { font-style: italic; color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+  .card p.body { margin: 0 0 16px; font-size: 16px; }
+  .decide { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; font-weight: 600; }
+
+  .field-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; }
+  .field { flex: 1 1 200px; }
+  label.flbl { display: block; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12.5px; color: var(--muted); margin-bottom: 4px; }
+  input[type=text], textarea {
+    width: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 15px;
+    color: var(--ink); background: #fcfcfa; border: 1px solid var(--rule); border-radius: 6px;
+    padding: 9px 11px; resize: vertical;
+  }
+  input[type=text]:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+  textarea { min-height: 58px; line-height: 1.5; }
+
+  .notes-block { margin: 26px 0 8px; }
+  .notes-block .decide { color: var(--muted); }
+
+  .actions { margin-top: 30px; text-align: center; }
+  button.copy {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 600;
+    color: #fff; background: var(--accent); border: none; border-radius: 8px;
+    padding: 14px 28px; cursor: pointer; transition: background 0.15s, transform 0.05s;
+  }
+  button.copy:hover { background: #4d6f5a; }
+  button.copy:active { transform: translateY(1px); }
+  .copy-hint { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13.5px; color: var(--muted); margin-top: 12px; min-height: 20px; }
+  .copy-hint.ok { color: var(--accent); font-weight: 600; }
+  .saved-flag { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 18px; opacity: 0.8; }
+  .footer { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14.5px; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="pretitle">For Kit · no rush, no wrong answers</div>
+  <h1>A little grown-up paperwork — and why it's actually kind of nice</h1>
+
+  <p class="lede">Hi Kit,</p>
+  <p>Now that you're 18, you're officially your own adult — which is great. One small side effect: there's a tiny bit of standard paperwork that pretty much every adult sets up at some point. It's boring admin, not a big deal, and we'd like a lawyer to handle the actual work so you barely have to think about it.</p>
+  <p>There are three documents. Here's the whole point of all three in one sentence:</p>
+
+  <div class="pointbox">
+    <strong>They let <em>you</em> choose who's allowed to help you with official stuff — so the people you trust can keep being there for you, exactly like always.</strong>
+  </div>
+
+  <p>That's it. Before 18, parents could automatically step in on certain things (talk to a doctor's office, sort out a bill). After 18, the law doesn't assume that anymore. These documents just let you say, on your own terms, "yep, this person can help me." You stay in charge of everything.</p>
+  <p class="reassure">You can change any of this whenever you want, for any reason. Nothing here is permanent. And you can fill this out a bit at a time — it saves as you go.</p>
+
+  <hr class="div">
+  <h2 class="docs-head">The three documents</h2>
+
+  <!-- DOC 1 -->
+  <div class="card">
+    <h3>1. A "who can help with health stuff" document</h3>
+    <p class="alias">the lawyer may call it a health care power of attorney</p>
+    <p class="body">This names one person you'd trust to talk to doctors <strong>on your behalf</strong> — but only if you ever couldn't do it yourself (say you were under anesthesia, or really sick for a few days). The rest of the time it does nothing at all. It's basically a backup so someone you trust can speak up for you instead of a stranger having to guess.</p>
+    <p class="decide">Your one decision — who's your person?</p>
+    <div class="field-row">
+      <div class="field"><label class="flbl" for="h_main">Your person</label><input type="text" id="h_main" data-key="h_main" placeholder="a name"></div>
+      <div class="field"><label class="flbl" for="h_back">Backup (optional)</label><input type="text" id="h_back" data-key="h_back" placeholder="someone else, just in case"></div>
+    </div>
+  </div>
+
+  <!-- DOC 2 -->
+  <div class="card">
+    <h3>2. A "who can help with money / paperwork stuff" document</h3>
+    <p class="alias">the lawyer may call it a financial power of attorney</p>
+    <p class="body">Same idea, for practical things — like if you were traveling, or in the hospital, and a bill needed paying or a form needed signing and you couldn't get to it. It lets someone you trust handle that for you. Again, only if needed.</p>
+    <p class="decide">Your one decision — who's your person? (Most people pick the same as above.)</p>
+    <div class="field-row">
+      <div class="field"><label class="flbl" for="m_main">Your person</label><input type="text" id="m_main" data-key="m_main" placeholder="a name (or 'same as above')"></div>
+      <div class="field"><label class="flbl" for="m_back">Backup (optional)</label><input type="text" id="m_back" data-key="m_back" placeholder="someone else, just in case"></div>
+    </div>
+  </div>
+
+  <!-- DOC 3 -->
+  <div class="card">
+    <h3>3. A simple will</h3>
+    <p class="alias">short and simple at 18 — totally fine to keep it basic</p>
+    <p class="body">A will just says who'd sort things out and where your belongings would go, in the very unlikely event something happened to you. It's completely okay to say "keep it simple, the usual" — the lawyer has a sensible default.</p>
+    <p class="decide">Your one decision</p>
+    <div class="field-row">
+      <div class="field"><label class="flbl" for="w_who">Who'd handle things?</label><input type="text" id="w_who" data-key="w_who" placeholder="a name"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label class="flbl" for="w_notes">Anything specific you'd want passed on? (or leave blank for "keep it simple")</label><textarea id="w_notes" data-key="w_notes" placeholder="totally fine to leave this blank"></textarea></div>
+    </div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="notes-block">
+    <p class="decide">Questions or anything on your mind?</p>
+    <textarea id="q_notes" data-key="q_notes" placeholder="Ask anything — no question is too small. (optional)"></textarea>
+  </div>
+
+  <div class="actions">
+    <button class="copy" id="copyBtn">Copy this to send to Dad</button>
+    <div class="copy-hint ui" id="copyHint">Copies a tidy summary — then just paste it to Dad in Slack.</div>
+  </div>
+
+  <div class="saved-flag ui" id="savedFlag">Your answers save automatically on this device.</div>
+
+  <p class="footer">Honestly, almost nothing for you to do — the lawyer writes everything. You just need to think about who you trust, which you probably already know. No rush, no wrong answers, and you can change any of it later.</p>
+
+</div>
+
+<script>
+  const STORE_KEY = "kit_legal_docs_v1";
+  const fields = Array.from(document.querySelectorAll("[data-key]"));
+
+  // --- load saved values ---
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(STORE_KEY) || "{}"); } catch (e) { saved = {}; }
+  fields.forEach(el => {
+    const k = el.getAttribute("data-key");
+    if (saved[k] === undefined) return;
+    if (el.type === "checkbox") el.checked = !!saved[k];
+    else el.value = saved[k];
+  });
+
+  // --- save on change ---
+  function save() {
+    const data = {};
+    fields.forEach(el => {
+      const k = el.getAttribute("data-key");
+      data[k] = el.type === "checkbox" ? el.checked : el.value;
+    });
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) {}
+  }
+  fields.forEach(el => { el.addEventListener("input", save); el.addEventListener("change", save); });
+
+  // --- build the Slack-friendly message ---
+  function val(id) { return (document.getElementById(id).value || "").trim(); }
+  function withBackup(main, back) {
+    if (!main) return "(not decided yet)";
+    return back ? main + "  (backup: " + back + ")" : main;
+  }
+  function buildMessage() {
+    const lines = [];
+    lines.push("Kit's picks for the lawyer paperwork :memo:");
+    lines.push("");
+    lines.push("• Health helper: " + withBackup(val("h_main"), val("h_back")));
+    lines.push("• Money / paperwork helper: " + withBackup(val("m_main"), val("m_back")));
+    const will = val("w_who") ? val("w_who") : "(not decided yet)";
+    lines.push("• Will — who'd handle things: " + will);
+    lines.push("• Will — anything specific: " + (val("w_notes") || "keep it simple"));
+    const q = val("q_notes");
+    if (q) { lines.push(""); lines.push("Questions / on my mind:"); lines.push(q); }
+    return lines.join("\n");
+  }
+
+  // --- copy to clipboard ---
+  const hint = document.getElementById("copyHint");
+  function flash(msg) {
+    hint.textContent = msg;
+    hint.classList.add("ok");
+    setTimeout(() => { hint.classList.remove("ok"); hint.textContent = "Copies a tidy summary — then just paste it to Dad in Slack."; }, 4000);
+  }
+  document.getElementById("copyBtn").addEventListener("click", async () => {
+    const msg = buildMessage();
+    try {
+      await navigator.clipboard.writeText(msg);
+      flash("Copied! Now paste it to Dad in Slack. ✓");
+    } catch (e) {
+      // fallback for older browsers / file:// restrictions
+      const ta = document.createElement("textarea");
+      ta.value = msg; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); flash("Copied! Now paste it to Dad in Slack. ✓"); }
+      catch (e2) { flash("Couldn't auto-copy — select the text and copy it manually."); }
+      document.body.removeChild(ta);
+    }
+  });
+</script>
+</body>
+</html>
